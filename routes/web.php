@@ -36,12 +36,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('home', 'DashboardController@index')->name('dashboard');
     Route::get('settings', 'DashboardController@settings')->name('settings');
 
-    Route::get('logout', function ()
-    {
-        auth()->logout();
-        Session()->flush();
-        return Redirect::to('/');
-    })->name('logout');
+    Route::get('logout', 'UserController@logout')->name('logout');
 
     Route::group(['middleware' => 'admin'], function () {
 

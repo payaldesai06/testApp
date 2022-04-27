@@ -5,6 +5,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Commonhelper;
+use Auth;
 
 class UserController extends Controller
 {
@@ -29,6 +30,16 @@ class UserController extends Controller
         $id = $request->id;
         $user = User::find($id);
         return view('admin.user.form', compact('id','user'));
+    }
+
+    public function logout()
+    {
+        $user = Auth::user();
+        $user->api_token = '';
+        $user->save();
+        auth()->logout();
+        Session()->flush();
+        return redirect('/');
     }
 
 }
